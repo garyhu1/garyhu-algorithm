@@ -1,12 +1,12 @@
 {
-  "name": "algorithm",
+  "name": "exercise",
   "version": "1.0.0",
-  "description": "",
+  "description": "平时练习积累",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node text15.js"
+    "test2": "node text10.js"
   },
-  "author": "",
+  "author": "garyhu",
   "license": "ISC"
 }
