@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>卡券效果</title>
+        <style>
+            .app {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 600px;
+            }
+            .parent {
+                position: relative;
+                box-sizing: border-box;
+                padding: 0 10px;
+                width: 200px;
+                height: 200px;
+                background-clip: content-box;
+                background-color: #fc3a28;
+            }
+            .parent::before {
+                position: absolute;
+                top: 0;
+                left: 0;
+                content: "";
+                display: block;
+                width: 11px;
+                height: 100%;
+                background: radial-gradient(circle 10px at left 150px, transparent 10px, #fc3a28 11px);
+                filter: drop-shadow(-2px 2px 2px rgba(0, 0, 0, .2));
+            }
+            .parent::after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                content: "";
+                display: block;
+                /* 这里的 21px 是为了避免某些百分百比缩放页面时，出现空隙 */
+                width:11px;
+                height: 100%;
+                /* 这里的11px 是为了防止出现锯齿 */
+                background: radial-gradient(10px circle at right 150px, transparent 10px, #fc3a28 11px);
+                filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, .2));
+            }
+            .child {
+                line-height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <div class="parent">
+                <div class="child"></div>
+            </div>
+        </div>
+    </body>
+</html>
