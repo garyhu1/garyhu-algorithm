@@ -44,3 +44,86 @@
 /**
  * @description 递归与回溯（8）- 不同路径
  */
+function combine(matrix) {
+    let rowLen = matrix.length;
+    if(!rowLen) {
+        return [];
+    }
+    let columnLen = matrix[0].length;
+    // 先找到零的个数和起点1位置、终点2位置
+    let zeroNum = 0;
+    let startX = 0;
+    let startY = 0;
+    let endX = 0;
+    let endY = 0;
+
+    // 定义四个方向
+    let directions = [
+        [0, 1],  // 向右
+        [0, -1], // 向左
+        [1, 0],  // 向下
+        [-1, 0]  // 向上
+    ]
+
+    // 定义集合，存放被访问过位置的状态
+    let visited = [];
+    // 定义结果长度
+    let result = 0;
+
+    for(let y = 0; y < rowLen; y++) {
+        visited[y] = [];
+        for(let x = 0; x < columnLen; x++) {
+            let cur = matrix[y][x];
+            if(cur === 1) {
+                startX = x;
+                startY = y;
+            }else if(cur === 2) {
+                endX = x;
+                endY = y;
+            }else if(cur === 0) {
+                zeroNum++;
+            }
+        }
+    }
+
+    // 验证该位置是不是合法
+    const isVaild = (x, y) => {
+        // console.log(x, y)
+        return x >= 0 && x < columnLen && y >= 0 && y < rowLen && !visited[y][x] && matrix[y][x] !== -1;
+    };
+
+    const helper = (x, y, passNum) => {
+        let curVal = matrix[y][x];
+        if(curVal === 2) {
+            if(passNum === zeroNum) {
+                result++;
+            }
+        }else if(curVal === 0) {
+            passNum += 1;
+        }
+
+        // 往四个方向递归回溯
+        for(let i = 0; i < directions.length; i++) {
+            let [diffY, diffX] = directions[i];
+            let nextX = x + diffX;
+            let nextY = y + diffY;
+            if(isVaild(nextX, nextY)) {
+                visited[nextY][nextX] = true;
+                helper(nextX, nextY, passNum);
+                // 回溯后把之前的状态回归到false
+                visited[nextY][nextX] = false;
+            }
+        }
+
+    };
+
+    visited[startY][startX] = true;
+
+    helper(startX, startY, 0);
+
+    return result;
+}
+
+let result = combine([[1,0,0,0],[0,0,0,0],[0,0,0,2]]);
+
+console.log(result);
