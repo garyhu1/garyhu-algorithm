@@ -38,7 +38,7 @@ function combine(nums) {
 					if(addArr.indexOf(curElement) === -1) {
 						addArr.push(curElement);
 						let cur = prev.concat(curElement);
-						helper(start + 1, cur);
+						helper(i + 1, cur);
 					}
 				}
 				addArr = null;
@@ -59,6 +59,6 @@ function combine(nums) {
 	return result;
 }
 
-let result = combine([2, 1, 2]);
+let result = combine([2, 1, 2, 2]);
 
 console.log(result);

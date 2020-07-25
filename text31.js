@@ -58,6 +58,6 @@ function combine(S) {
 	return result;
 }
 
-let result = combine('ab');
+let result = combine('qeq');
 
 console.log(result);

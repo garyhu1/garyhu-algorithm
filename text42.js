@@ -24,11 +24,10 @@ function dymanic(s, p) {
 	dp[0][0] = true;
 	for(let y = 0; y <= m; y++) {
 		for(let x = 1; x <= n; x++) {
-			if(p[x] === '*') {
+			if(p[x - 1] === '*') {
+				dp[y][x] = dp[y][x - 2];
 				if(matches(y, x - 1)) {
-					dp[y][x] = dp[y - 1][x] || dp[y][x - 2];
-				}else {
-					dp[y][x] = dp[y][x - 2]
+					dp[y][x] = dp[y - 1][x];
 				}
 			}else {
 				if(matches(y, x)) {
@@ -42,6 +41,6 @@ function dymanic(s, p) {
 	return dp[m][n];
 }
 
-let result = dymanic('abcddbccc', 'a.c.*b.*');
+let result = dymanic('acbbdcc', 'acb*dc*');
 
 console.log(result);
