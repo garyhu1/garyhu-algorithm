@@ -29,3 +29,40 @@ n >= 3
 /**
  * @description 动态规划 - 最长的斐波那契子序列的长度
  */
+function dymanic(nums) {
+    let n = nums.length;
+    if(!n) {
+        return 0;
+    }
+    
+    let dp = [];
+    dp[0] = [{sum: nums[0], len: 1, head: nums[0]}];
+
+    for(let i = 1; i <= n; i++) {
+        let cur = nums[i];
+        let sections = [{sum: cur, len: 1, head: cur}];
+        for(let j = 0; j < i; j++) {
+            for(section of dp[j]) {
+                let {sum, len, head} = section;
+                if(len === 1) {
+                    sections.push({sum: sum + cur, len: 2, head: sum})
+                }else if(sum === cur) {
+                    sections.push({
+                        sum: sum - head + cur,
+                        len: len + 1,
+                        head: sum - head
+                    })
+                }
+            }
+        }
+        dp[i] = sections;
+    }
+
+    let result = Math.max(...dp.flat().map(({len}) => len));
+
+    return result < 3 ? 0 : result;
+}
+
+let result  = dymanic([1,2,3,4,5,6,7,8]);
+
+console.log(result);
