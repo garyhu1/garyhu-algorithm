@@ -16,6 +16,23 @@
  */
 function dymanic(words) {
 
+    const wordBreak = (s, dict) => {
+        let len = s.length;
+        let dictMap = new Set(dict);
+        let dp = [];
+        dp[0] = true;
+        for(let i = 0; i <= len; i++) {
+            for(let j = i; j >= 0; j--) {
+                let str = s.slice(j, i);
+                if(dictMap.has(str) && dp[j]) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return !!dp[len];
+    };
+
     // 先按长度降序，相同长度再按字典升序
     words.sort((a, b) => {
         let diff = b.length - a.length;
@@ -25,6 +42,15 @@ function dymanic(words) {
             return a < b ? -1 : 1;
         }
     });
+
+    for(let i = 0; i < words.length; i++) {
+        let s = words[i];
+        let dict = words.slice(i + 1);
+        if(wordBreak(s, dict)) {
+            return s;
+        }
+    }
+    return "";
 }
 
 let result = dymanic(["cat","banana","dog","nana","walk","walker","dogwalker"]);
