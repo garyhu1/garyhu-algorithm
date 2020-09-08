@@ -8,5 +8,9 @@
     "dev": "node text35.js"
   },
   "author": "garyhu",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "leaflet": "^1.6.0",
+    "vue": "^2.6.12"
+  }
 }
