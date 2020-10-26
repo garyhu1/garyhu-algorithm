@@ -18,7 +18,7 @@ function LinkNode() {
 function reverseBwteen(head, m, n) {
     let tempNode = new LinkNode();
     let p = tempNode;
-    let cur, prev, start, tail;
+    let cur, prev, start;
     p.next = head;
     for(let i = 0; i < m - 1; i++) {
         p = p.next;
@@ -27,9 +27,9 @@ function reverseBwteen(head, m, n) {
     // 记录区间前一个节点
     let front = p;
     // 记录区间首节点
-    start = tail = p.next;
+    start = prev= p.next;
 
-    cur = p.next;
+    cur = prev.next;
     // 进行区间反转
     for(let i = 0; i < (n - m); i++) {
         let next = cur.next;
@@ -40,7 +40,7 @@ function reverseBwteen(head, m, n) {
 
     // 拼接链表
     front.next = prev;
-    start.next = cur.next; // cur.next是区间后一个节点
+    start.next = cur; // cur是区间的后一个节点
     return tempNode.next;
 
 }
